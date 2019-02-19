@@ -6,7 +6,7 @@ They are compiled from the same [kernel sources] used for official Raspian
 images, with tweaks to make them suitable for use with QEMU, and are supposed
 to be used along with official Raspbian images.
 
-## Obtaining Raspbian
+## Raspbian
 
 Before starting, you should download a [Raspbian image] from the Raspberry Pi
 website and extract the `.zip` archive to obtain an `.img` file.
@@ -93,3 +93,5 @@ Additional documentation can be found on the [wiki].
 [kernel sources]: https://github.com/raspberrypi/linux/
 [xecdesign.com]: https://xecdesign.com/downloads/linux-qemu/kernel-qemu
 [wiki]: https://github.com/dhruvvyas90/qemu-rpi-kernel/wiki
+
+command line: $ qemu-system-arm -M versatilepb -cpu arm1176 -m 256 -hda 2018-11-13-raspbian-stretch-lite.img -net nic -net user,hostfwd=tcp::5022-:22 -dtb ./qemu-rpi-kernel/versatile-pb.dtb -kernel ./qemu-rpi-kernel/kernel-qemu-4.14.79-stretch -append 'root=/dev/sda2 panic=1' -no-reboot
