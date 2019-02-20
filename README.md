@@ -37,6 +37,13 @@ contributed by <`williamchangTW`>
 
 路徑可以根據不同的機器做更改。
 #### More detail 
+`-cpu`: CPU model.
+`-m`: Size of RAM.
+`-M`: board model(for varified ARM board architecture.
+`-serial stdio`: option redirects the boot output messages and the console to your terminal.
+`-append`: can contains all options to be passed on to the kernel at boot time, which can control the log level using `loglevel=`, `console==ttyAMA0` for ARM, `console=ttyS0` for Intel machine.
+    
+內容可以在 `cmdline.txt` 檔案
 ## Using kernel images with libvirt
 若用 [libvirt] 建立虛擬環境如下指令：
   
@@ -70,6 +77,7 @@ contributed by <`williamchangTW`>
 #### Further information
 
 - 額外的參考檔案可以在這個連結下找到：[wiki]
+## Running QEMU
 
 ### Reference
 [Raspbian image]: https://www.raspberrypi.org/downloads/raspbian/
