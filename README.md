@@ -3,7 +3,7 @@ contributed by <`williamchangTW`>
 
 ## Raspberry Pi Kernel preparing
 - Environment: Ubuntu 18.04(VirtualBox)
-使用已經製作好的 `kernel` 用來模擬 Raspberry Pi 在 QEMU 上，可以依據這個連結[kernel sources]內已經製作好的 `kernel` 進行編譯。  
+- 使用已經製作好的 `kernel` 用來模擬 Raspberry Pi 在 QEMU 上，可以依據這個連結[kernel sources]內已經製作好的 `kernel` 進行編譯。  
 ### For Raspberry Pi, OS: Raspbian
 在開始之前，必須要有[Raspbian image]，可以從這個連結到官網上下載。下載下來會是一個 `.zip` 檔，用指令解開它，解壓縮成 `.img` 檔案。
     
