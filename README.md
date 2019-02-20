@@ -41,9 +41,31 @@ contributed by <`williamchangTW`>
 `-m`: Size of RAM.
 `-M`: board model(for varified ARM board architecture.
 `-serial stdio`: option redirects the boot output messages and the console to your terminal.
-`-append`: can contains all options to be passed on to the kernel at boot time, which can control the log level using `loglevel=`, `console==ttyAMA0` for ARM, `console=ttyS0` for Intel machine.
+`-append`: can contains all options to be passed on to the kernel at boot time, which can control the log level using `loglevel=`, `console==ttyAMA0` for ARM, `console=ttyS0` for Intel machine. 
+`root=/dev/sda2`: key option for our kernel place.
+`PARTUUID=`: means Partition Universally Unique Identifier, can replace `/dev/sda2`(if you want to boot from USB, because rely on the name and need the Unique partition identifier).
     
-內容可以在 `cmdline.txt` 檔案
+內容可以在 `cmdline.txt` 檔案內找到更多資訊
+---
+
+`-drive file=2018-10-09-raspbian-stretch-lite.img, format=raw`: memory card is modeled
+`-redir tcp:5022:22`: The network is integrated in the board model, use this option
+`ssh -p 5022 localhost`: Lets you ssh inti the guset using
+
+---
+當你 Login 會看到
+
+    $ raspberrypi login:
+
+使用 `pi`, 密碼為 `raspberry`
+
+    $ sudo systemctl ssh start
+    
+連接到 `ssh` 服務
+
+    $ ssh -p 5022 pi@localhost
+    
+
 ## Using kernel images with libvirt
 若用 [libvirt] 建立虛擬環境如下指令：
   
