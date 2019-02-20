@@ -1,55 +1,45 @@
-# qemu-rpi-kernel
+# Raspberry Pi on QEMU virtual-machine 
+contributed by <`williamchangTW`>
 
-Ready-made kernels that can be used to emulate a Raspberry Pi using QEMU.
+## Raspberry Pi Kernel preparing
+- Environment: Ubuntu 18.04(VirtualBox)
+使用已經製作好的 `kernel` 用來模擬 Raspberry Pi 在 QEMU 上，可以依據這個連結[kernel sources]內已經製作好的 `kernel` 進行編譯。  
+### For Raspberry Pi, OS: Raspbian
+在開始之前，必須要有[Raspbian image]，可以從這個連結到官網上下載。下載下來會是一個 `.zip` 檔，用指令解開它，解壓縮成 `.img` 檔案。
+    
+    $ unzip <your_zip_file>
 
-They are compiled from the same [kernel sources] used for official Raspian
-images, with tweaks to make them suitable for use with QEMU, and are supposed
-to be used along with official Raspbian images.
+`Raspbian` 是為了 Raspberry Pi 所開發的作業系統，非常簡易，因為模擬 Raspberry Pi 的環境通常會優先使用 `Raspbian`，因為是特地為這個硬體所開發的，相對資源較多且易於開發。 
 
-## Raspbian
-
-Before starting, you should download a [Raspbian image] from the Raspberry Pi
-website and extract the `.zip` archive to obtain an `.img` file.
-
-## Choosing a kernel image
-
-This repository contains three types of kernel images:
-
-* `kernel-qemu-4.*.*-stretch` are the most recent images, which are compatible
-  with Raspbian Stretch and Jessie. To use these images, you'll need the
-  `versatile-pb.dtb` file which is also contained in this repository. Unless
-  you are positive you need a different kernel, the most recent of these images
-  is probably what you want.
-
-* `kernel-qemu-4.4.*-jessie` are images compatible with Raspbian Jessie and
-  Wheezy.
-
-* `kernel-qemu-3.10.25-wheezy` is the original image from [xecdesign.com],
-  which is compatible with Raspbian Wheezy only.
+### How to choose a kernel image?
+以下會包含三個類型的 `kernel` 映像檔：
+- `kernel-qemu-4.*.*-stretch`:
+  - 最常見的映像檔，與 `Raspbian Stretch` 和 `Raspbian Jessie` 相容性較好。若要使用這個映像檔需要 `versatile-pb.dtb`（一樣在這個路徑底下）。這個映像檔會是最符和一開始的開發使用。
+- `kernel-qemu-4.4.*-jessie`:
+  - 比較適合 `Raspbian Jessie` 及 `Raspbian Wheezy`。
+- `kernel-qemu-3.10.25-wheezy`:
+  - 這是原始的映像檔從[xecdesign.com]所開發的。只適用於 `Raspbian Wheezy`。
 
 ## Using kernel images with QEMU
-
-The QEMU command line will look like
+建立 `QEMU` 的虛擬環境指令：
 
     $ qemu-system-arm \
-      -M versatilepb \
-      -cpu arm1176 \
-      -m 256 \
-      -hda /.../2018-11-13-raspbian-stretch-lite.img \
-      -net nic \
-      -net user,hostfwd=tcp::5022-:22 \
-      -dtb /.../versatile-pb.dtb \
-      -kernel /.../kernel-qemu-4.14.79-stretch \
-      -append 'root=/dev/sda2 panic=1' \
-      -no-reboot
+        -M versatilepb \
+        -cpu arm1176 \
+        -m 256 \
+        -hda 2018-11-13-raspbian-stretch-lite.img \
+        -net nic \
+        -net user,hostfwd=tcp::5022-:22 \
+        -dtb ./qemu-rpi-kernel/versatile-pb.dtb \
+        -kernel ./qemu-rpi-kernel/kernel-qemu-4.14.79-stretch \
+        -append 'root=/dev/sda2 panic=1' \
+        -no-reboot
 
-with the paths to the disk image, `.dtb` file and kernel image adjusted
-appropriately.
-
+路徑可以根據不同的機器做更改。
+#### More detail 
 ## Using kernel images with libvirt
-
-Assuming your libvirt version is at least 5.0.0, you can use something like
-
+若用 [libvirt] 建立虛擬環境如下指令：
+  
     $ virt-install \
       --name pi \
       --arch armv6l \
@@ -66,32 +56,25 @@ Assuming your libvirt version is at least 5.0.0, you can use something like
       --boot 'dtb=/.../versatile-pb.dtb,kernel=/.../kernel-qemu-4.14.79-stretch,kernel_args=root=/dev/vda2 panic=1' \
       --events on_reboot=destroy
 
-to create a new libvirt guest called `pi`. You'll be able to manage the guest
-with all the usual tools, such as `virsh` and `virt-manager`.
+建立 `libvert` 的客戶稱為 `pi`（這邊為了簡易使用）,為了要控制這個客戶，可以自由地使用如 `virsh` 和 `virt-manager` 等工具輔助使用。 
+#### More detail
 
-## Building your own kernel image
+### Building your own kernel image
 
-See the contents of the `tools/` directory, where the build scripts and
-instructions on how to use them are stored.
+可以參考 `tools/` 資料夾內的內容，建制自己所需的 `kernel`。
 
-## Origin of this repository
+#### Origin of this repository
 
-While searching the Internet for information on emulating a Raspberry Pi using
-QEMU in Jun 2015, most of the guides pointed to kernel images hosted on
-[xecdesign.com]; however, at the time the resource was no longer online, and
-that's still the case as of Feb 2019.
+這篇文章最主要參考 [Github: dhruvvyas90] 的 `Github` 內容所製作。
 
-This repository was initially created as a way to make those kernel images
-available once again, and has since been expanded to provide improved and
-up-to-date images.
+#### Further information
 
-## Further information
+- 額外的參考檔案可以在這個連結下找到：[wiki]
 
-Additional documentation can be found on the [wiki].
-
+### Reference
 [Raspbian image]: https://www.raspberrypi.org/downloads/raspbian/
 [kernel sources]: https://github.com/raspberrypi/linux/
 [xecdesign.com]: https://xecdesign.com/downloads/linux-qemu/kernel-qemu
+[libvirt]: https://wiki.archlinux.org/index.php/Libvirt_(%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87)
+[Github: dhruvvyas90]: https://github.com/dhruvvyas90/qemu-rpi-kernel
 [wiki]: https://github.com/dhruvvyas90/qemu-rpi-kernel/wiki
-
-command line: $ qemu-system-arm -M versatilepb -cpu arm1176 -m 256 -hda 2018-11-13-raspbian-stretch-lite.img -net nic -net user,hostfwd=tcp::5022-:22 -dtb ./qemu-rpi-kernel/versatile-pb.dtb -kernel ./qemu-rpi-kernel/kernel-qemu-4.14.79-stretch -append 'root=/dev/sda2 panic=1' -no-reboot
