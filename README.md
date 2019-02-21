@@ -166,7 +166,7 @@ contributed by <`williamchangTW`>
     1. 最新版本的 `Jessie` 映像檔
     2. 4.x.xx qemu-kernel for versatilepb
 #### Steps
-    1. `fdisk -l <image-file>
+    1. `fdisk -l <image-file>`
 - 輸出訊息如下:
 ```
 Disk 2015-11-21-raspbian-jessie.img: 3.7 GiB, 3934257152 bytes, 7684096 sectors
