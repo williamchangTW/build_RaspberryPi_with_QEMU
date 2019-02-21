@@ -166,7 +166,7 @@ contributed by <`williamchangTW`>
     1. 最新版本的 `Jessie` 映像檔
     2. 4.x.xx qemu-kernel for versatilepb
 #### Steps
-    1. `fdisk -l <image-file>`
+1. `fdisk -l <image-file>`
 - 輸出訊息如下:
 ```
 Disk 2015-11-21-raspbian-jessie.img: 3.7 GiB, 3934257152 bytes, 7684096 sectors
@@ -182,13 +182,13 @@ Device                          Boot  Start     End Sectors  Size Id Type
 ```
 - 檔案系統(.img2) 從 Sector: 131072, 等於 `512*131072=67108864 bytes`, 這個數字為偏移量, 實例如: `mount -v -o offset=67108864 -t ext4 your-image-file.img /path/to/mnt/`
 
-    2. `cd /path/to/mnt`
-    3. `sudo nano ./etc/ld.so.preload`
-    4. 註解每一行`Ctrl-x` >> `Y` 儲存後離開
-    5. `sudo nano ./etc/fstab`
-    6. 註解每一個含有 `/dev/mmcblk`, `Ctrl-x` >> Y 儲存離開
-    7. `cd ~`
-    8. `sudo umount /path/to/mnt`
+2. `cd /path/to/mnt`
+3. `sudo nano ./etc/ld.so.preload`
+4. 註解每一行`Ctrl-x` >> `Y` 儲存後離開
+5. `sudo nano ./etc/fstab`
+6. 註解每一個含有 `/dev/mmcblk`, `Ctrl-x` >> Y 儲存離開
+7. `cd ~`
+8. `sudo umount /path/to/mnt`
 
 - 上面的步驟只需做過一次後, 接下來只需要用下面指令就可以模擬 RPi:
 ```
