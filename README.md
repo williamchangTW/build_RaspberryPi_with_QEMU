@@ -182,7 +182,7 @@ Device                          Boot  Start     End Sectors  Size Id Type
 ```
 - 檔案系統(.img2) 從 Sector: 131072, 等於 `512*131072=67108864 bytes`, 這個數字為偏移量, 實例如: `mount -v -o offset=67108864 -t ext4 your-image-file.img /path/to/mnt/`
 
-    2. `cd /path/to/mnt
+    2. `cd /path/to/mnt`
     3. `sudo nano ./etc/ld.so.preload`
     4. 註解每一行`Ctrl-x` >> `Y` 儲存後離開
     5. `sudo nano ./etc/fstab`
