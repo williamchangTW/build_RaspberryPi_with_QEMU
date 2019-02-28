@@ -203,6 +203,7 @@ qemu-system-arm \
 ```
 ### Trouble shooting
 - 若遇到容量不夠，可以直接對映像檔增加大小就好
+
         `qemu-img resize <your_image_file>.img +20G`
 
 ### Reference
